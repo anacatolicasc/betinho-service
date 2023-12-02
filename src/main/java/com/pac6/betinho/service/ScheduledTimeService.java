@@ -14,6 +14,8 @@ import com.pac6.betinho.dto.ScheduledTimeResponse;
 import com.pac6.betinho.model.ScheduledTime;
 import com.pac6.betinho.repository.ScheduledTimeRepository;
 
+import io.jsonwebtoken.lang.Assert;
+
 @Service
 public class ScheduledTimeService {
 	
@@ -36,6 +38,19 @@ public class ScheduledTimeService {
 		ScheduledTime newScheduledTime = repository.save(ScheduledTime);
 		return newScheduledTime;
 	}
+	
+    public ResponseEntity<ScheduledTime> createScheduledTime(ScheduledTime scheduledTime, String token) {
+    	Assert.isTrue(scheduledTime.getId() == null, "ID não deve ser informado.");
+        Long userId = userService.getUserByToken(token);
+
+        if (userService.userExists(userId)) {
+        	scheduledTime.setUser(userService.getUserById(userId));
+            ScheduledTime createdScheduledTime = create(scheduledTime);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdScheduledTime);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 	
 	public ScheduledTime update(ScheduledTime ScheduledTime) {
 		ScheduledTime newScheduledTime = repository.save(ScheduledTime);

@@ -33,8 +33,8 @@ public class ScheduledTimeController {
     }
 	
 	@PostMapping
-	public ResponseEntity<ScheduledTime> createScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
-		return ResponseEntity.status(201).body(scheduledTimeService.create(scheduledTime));
+	public ResponseEntity<ResponseEntity<ScheduledTime>> createScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
+		return ResponseEntity.status(201).body(scheduledTimeService.createScheduledTime(scheduledTime, token));
 	}
 	
 	@PutMapping
