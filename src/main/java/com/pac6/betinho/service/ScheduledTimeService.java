@@ -40,9 +40,11 @@ public class ScheduledTimeService {
 	}
 	
     public ResponseEntity<ScheduledTime> createScheduledTime(ScheduledTime scheduledTime, String token) {
+    	System.out.println("Linha 43");
     	Assert.isTrue(scheduledTime.getId() == null, "ID não deve ser informado.");
+    	System.out.println("Linha 45");
         Long userId = userService.getUserByToken(token);
-        System.out.println(userId);
+        System.out.println("Linha 47");
 
         if (userService.userExists(userId)) {
         	System.out.println("Teste");
