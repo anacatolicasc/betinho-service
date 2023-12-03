@@ -1,6 +1,7 @@
 package com.pac6.betinho.service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,17 +63,12 @@ public class ScheduledTimeService {
 	}
 	
 	public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTimeByUserId(String token) {
-		System.out.println("Entrou no método");
         Long userId = userService.getUserByToken(token);
         List<ScheduledTime> scheduledTimes = findByUserId(userId);
-        System.out.println("Primeira comparação");
         if (scheduledTimes != null && !scheduledTimes.isEmpty()) {
-        	System.out.println("Linha 70");
-            LocalDate currentDate = LocalDate.now();
+            LocalDate currentDate = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
             List<ScheduledTime> filteredScheduledTimes = filterByCurrentDate(scheduledTimes, currentDate);
-            System.out.println("Segunda comparação");
             if (!filteredScheduledTimes.isEmpty()) {
-            	System.out.println("75");
                 List<ScheduledTimeResponse> listResponse = new ArrayList<>();
                 filteredScheduledTimes.forEach(scheduledTime -> {
                     listResponse.add(ScheduledTimeResponse

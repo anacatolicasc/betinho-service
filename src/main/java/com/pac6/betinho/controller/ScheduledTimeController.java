@@ -29,7 +29,6 @@ public class ScheduledTimeController {
 	
 	@GetMapping("/getAll")
     public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTime(@RequestParam String token) {
-		System.out.println("Linha 32");
         return scheduledTimeService.findScheduledTimeByUserId(token);
     }
 	
