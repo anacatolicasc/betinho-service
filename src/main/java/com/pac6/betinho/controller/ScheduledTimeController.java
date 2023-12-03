@@ -29,9 +29,7 @@ public class ScheduledTimeController {
 	
 	@GetMapping("/getAll")
     public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTime(@RequestParam String token) {
-        //return scheduledTimeService.findScheduledTimeByUserId(token);
-		System.out.println("Cai aqui");
-		return ResponseEntity.ok(null);
+        return scheduledTimeService.findScheduledTimeByUserId(token);
     }
 	
 	@PostMapping

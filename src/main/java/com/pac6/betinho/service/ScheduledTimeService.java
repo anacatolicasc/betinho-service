@@ -42,10 +42,13 @@ public class ScheduledTimeService {
     public ResponseEntity<ScheduledTime> createScheduledTime(ScheduledTime scheduledTime, String token) {
     	Assert.isTrue(scheduledTime.getId() == null, "ID não deve ser informado.");
         Long userId = userService.getUserByToken(token);
+        System.out.println(userId);
 
         if (userService.userExists(userId)) {
+        	System.out.println("Teste");
         	scheduledTime.setUser(userService.getUserById(userId));
             ScheduledTime createdScheduledTime = create(scheduledTime);
+            System.out.println(createdScheduledTime);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdScheduledTime);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
