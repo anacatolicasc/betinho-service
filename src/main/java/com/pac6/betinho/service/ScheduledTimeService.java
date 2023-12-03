@@ -78,10 +78,10 @@ public class ScheduledTimeService {
                 });
                 return ResponseEntity.status(HttpStatus.OK).body(listResponse);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 	
