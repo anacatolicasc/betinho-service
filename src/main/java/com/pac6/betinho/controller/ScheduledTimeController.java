@@ -27,14 +27,14 @@ public class ScheduledTimeController {
 		this.scheduledTimeService = scheduledTimeService;
 	}
 	
-	@GetMapping
+	@GetMapping("/getAll")
     public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTime(@RequestParam String token) {
         return scheduledTimeService.findScheduledTimeByUserId(token);
     }
 	
 	@PostMapping
-	public ResponseEntity<ResponseEntity<ScheduledTime>> createScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
-		return ResponseEntity.status(201).body(scheduledTimeService.createScheduledTime(scheduledTime, token));
+	public ResponseEntity<ScheduledTime> createScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
+		return scheduledTimeService.createScheduledTime(scheduledTime, token);
 	}
 	
 	@PutMapping
