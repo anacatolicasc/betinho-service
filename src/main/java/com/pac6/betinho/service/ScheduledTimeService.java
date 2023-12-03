@@ -40,17 +40,12 @@ public class ScheduledTimeService {
 	}
 	
     public ResponseEntity<ScheduledTime> createScheduledTime(ScheduledTime scheduledTime, String token) {
-    	System.out.println("Linha 43");
     	Assert.isTrue(scheduledTime.getId() == null, "ID não deve ser informado.");
-    	System.out.println("Linha 45");
         Long userId = userService.getUserByToken(token);
-        System.out.println("Linha 47");
 
         if (userService.userExists(userId)) {
-        	System.out.println("Teste");
         	scheduledTime.setUser(userService.getUserById(userId));
             ScheduledTime createdScheduledTime = create(scheduledTime);
-            System.out.println(createdScheduledTime);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdScheduledTime);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -67,14 +62,17 @@ public class ScheduledTimeService {
 	}
 	
 	public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTimeByUserId(String token) {
+		System.out.println("Entrou no método");
         Long userId = userService.getUserByToken(token);
         List<ScheduledTime> scheduledTimes = findByUserId(userId);
-
+        System.out.println("Primeira comparação");
         if (scheduledTimes != null && !scheduledTimes.isEmpty()) {
+        	System.out.println("Linha 70");
             LocalDate currentDate = LocalDate.now();
             List<ScheduledTime> filteredScheduledTimes = filterByCurrentDate(scheduledTimes, currentDate);
-            
+            System.out.println("Segunda comparação");
             if (!filteredScheduledTimes.isEmpty()) {
+            	System.out.println("75");
                 List<ScheduledTimeResponse> listResponse = new ArrayList<>();
                 filteredScheduledTimes.forEach(scheduledTime -> {
                     listResponse.add(ScheduledTimeResponse
