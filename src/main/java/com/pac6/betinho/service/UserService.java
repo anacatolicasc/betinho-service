@@ -83,4 +83,9 @@ public class UserService {
     public Long getUserByToken(String token) {
     	return userRepository.findByToken(token).getId();
     }
+
+    public boolean checkLogin(String email, String password) {
+        User user = userRepository.findByEmailAndPassword(email, password);
+        return user != null;
+    }
 }

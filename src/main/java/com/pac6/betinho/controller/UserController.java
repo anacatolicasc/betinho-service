@@ -1,6 +1,8 @@
 package com.pac6.betinho.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,14 +27,14 @@ public class UserController {
         return userService.createUser(registrationUser.getEmail(), registrationUser.getPassword());
     }
     
-//    @PostMapping("/login")
-//    public ResponseEntity<String> loginUser(@RequestBody User loginUser) {
-//        boolean loginSuccess = userService.checkLogin(loginUser.getEmail(), loginUser.getPassword());
-//        
-//        if (loginSuccess) {
-//            return ResponseEntity.ok("Login OK");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login falhou");
-//        }
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody User loginUser) {
+        boolean loginSuccess = userService.checkLogin(loginUser.getEmail(), loginUser.getPassword());
+        
+        if (loginSuccess) {
+            return ResponseEntity.ok("Login OK");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login falhou");
+        }
+    }
 }
