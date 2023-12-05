@@ -33,11 +33,13 @@ public class CurrentQuantityController {
 		return ResponseEntity.status(200).body(currentQuantityService.list());
 	}
 	
+	@CrossOrigin
 	@PostMapping("/create")
 	public ResponseEntity<CurrentQuantity> createCurrentQuantity (@RequestBody CurrentQuantity currentQuantity, @RequestParam String token) {
 		return currentQuantityService.createCurrentQuantity(currentQuantity, token);
 	}
 	
+	@CrossOrigin
 	@PutMapping
 	public ResponseEntity<ResponseEntity<CurrentQuantity>> updateScheduledTime (@RequestBody CurrentQuantity currentQuantity, @RequestParam String token) {
 		return ResponseEntity.status(201).body(currentQuantityService.update(currentQuantity, token));

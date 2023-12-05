@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,16 +28,19 @@ public class ScheduledTimeController {
 		this.scheduledTimeService = scheduledTimeService;
 	}
 	
+	@CrossOrigin
 	@GetMapping("/getAll")
     public ResponseEntity<List<ScheduledTimeResponse>> findScheduledTime(@RequestParam String token) {
         return scheduledTimeService.findScheduledTimeByUserId(token);
     }
 	
+	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<ScheduledTime> createScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
 		return scheduledTimeService.createScheduledTime(scheduledTime, token);
 	}
 	
+	@CrossOrigin
 	@PutMapping
 	public ResponseEntity<ResponseEntity<ScheduledTime>> updateScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
 		return ResponseEntity.status(201).body(scheduledTimeService.update(scheduledTime, token));
