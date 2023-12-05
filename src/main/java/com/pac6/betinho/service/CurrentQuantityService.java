@@ -34,8 +34,14 @@ public class CurrentQuantityService {
 		return repository.save(currentQuantity);
 	}
 	
-	public CurrentQuantity update(CurrentQuantity currentQuantity) {
-		return repository.save(currentQuantity);
+	public ResponseEntity<CurrentQuantity> update(CurrentQuantity currentQuantity, String token) {
+        Long userId = userService.getUserByToken(token);
+        if (userService.userExists(userId)) {
+        	currentQuantity.setUser(userService.getUserById(userId));
+        	return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(currentQuantity));
+        } else {
+        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 	}
 	
     public ResponseEntity<CurrentQuantity> createCurrentQuantity(CurrentQuantity currentQuantity, String token) {

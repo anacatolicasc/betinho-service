@@ -53,9 +53,14 @@ public class ScheduledTimeService {
         }
     }
 	
-	public ScheduledTime update(ScheduledTime ScheduledTime) {
-		ScheduledTime newScheduledTime = repository.save(ScheduledTime);
-		return newScheduledTime;
+	public ResponseEntity<ScheduledTime> update(ScheduledTime ScheduledTime, String token) {
+		Long userId = userService.getUserByToken(token);
+        if (userService.userExists(userId)) {
+        	ScheduledTime.setUser(userService.getUserById(userId));
+        	return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(repository.save(ScheduledTime)));
+        } else {
+        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 	}
 	
 	public List<ScheduledTime> findByUserId(Long id) {

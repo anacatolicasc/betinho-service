@@ -38,7 +38,7 @@ public class ScheduledTimeController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<ScheduledTime> updateScheduledTime (@RequestBody ScheduledTime scheduledTime) {
-		return ResponseEntity.status(201).body(scheduledTimeService.update(scheduledTime));
+	public ResponseEntity<ResponseEntity<ScheduledTime>> updateScheduledTime (@RequestBody ScheduledTime scheduledTime, @RequestParam String token) {
+		return ResponseEntity.status(201).body(scheduledTimeService.update(scheduledTime, token));
 	}
 }

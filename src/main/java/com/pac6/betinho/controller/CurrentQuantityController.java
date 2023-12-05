@@ -37,7 +37,7 @@ public class CurrentQuantityController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<CurrentQuantity> updateScheduledTime (@RequestBody CurrentQuantity currentQuantity) {
-		return ResponseEntity.status(201).body(currentQuantityService.update(currentQuantity));
+	public ResponseEntity<ResponseEntity<CurrentQuantity>> updateScheduledTime (@RequestBody CurrentQuantity currentQuantity, @RequestParam String token) {
+		return ResponseEntity.status(201).body(currentQuantityService.update(currentQuantity, token));
 	}
 }
